@@ -1,0 +1,232 @@
+Frameworks for Node.js
+==================
+
+
+
+There are various third party open-source frameworks available in 
+Node Package Manager which makes Node.js application development 
+faster and easy. 
+
+we can choose an appropriate framework 
+
+
+
+Express.js
+	Express is a minimal and flexible Node.js web application framework 
+that provides a robust set of features for web and mobile applications. 
+This is the most popular framework as of now for Node.js.
+
+Geddy	
+
+Koa	
+Total.js	
+Hapi.js	
+
+===================
+Express.js
+
+"Express is a fast, unopinionated minimalist web framework for Node.js" 
+- official web site: Expressjs.com
+
+Express.js is a web application framework for Node.js. 
+It provides various features that make web application development
+ fast and easy which otherwise takes more time using only Node.js.
+
+==
+Advantages of Express.js:
+
+Makes Node.js web application development fast and easy.
+
+Easy to configure and customize.
+
+Easy to integrate with different template engines like Jade, Vash, EJS etc.
+
+Allows you to create REST API server.
+
+Easy to connect with databases such as MongoDB, Redis, MySQL
+==================================
+
+Install Express.js:
+
+You can install express.js using npm. 
+
+ command to install latest version of express.js globally on your machine so that every Node.js application on your machine can use it.
+
+npm install -g express
+
+ command to install latest version of express.js local to your project folder.
+
+C:\MyNodeJSApp> npm install express --save
+
+=============
+
+Express.js Web Application:
+
+ create a web application using Express.js.
+
+Express.js provides an easy way to create web server and render HTML pages for different HTTP requests by configuring routes for your application.
+
+Web Server:
+
+import the Express.js module and create the web server as shown below.
+
+app.js: 
+        
+var express = require('express');
+var app = express();
+
+// define routes here..
+
+var server = app.listen(5000, function () {
+    console.log('Node server is running..');
+});
+
+we imported Express.js module using require() function.
+The express module returns a function. 
+
+This function returns an object which can be used to configure 
+Express application(app in this Example) 
+
+The app object includes methods for routing HTTP requests,
+ configuring middleware, rendering HTML views and registering a template engine.
+
+
+The app.listen() function creates the Node.js web server at the specified host
+ and port. It is identical to Node's http.Server.listen() method.
+
+
+Run the above example using node app.js command and point your browser to 
+http://localhost:5000. It will display Cannot GET / because we have not
+ configured any routes yet.
+
+
+
+Configure Routes:
+
+Use app object to define different routes of your application.
+
+ The app object includes get(), post(), put() and delete() methods to 
+define routes for HTTP GET, POST, PUT and DELETE requests respectively.
+
+ configuring routes for HTTP requests.
+-----------------------------------------------
+
+ Configure Routes in Express.js
+    ===========
+    
+var express = require('express');
+var app = express();
+
+app.get('/', function (req, res) {
+    res.send('<html><body><h1>Hello World</h1></body></html>');
+});
+
+app.post('/submit-data', function (req, res) {
+    res.send('POST Request');
+});
+
+app.put('/update-data', function (req, res) {
+    res.send('PUT Request');
+});
+
+app.delete('/delete-data', function (req, res) {
+    res.send('DELETE Request');
+});
+
+var server = app.listen(5000, function () {
+    console.log('Node server is running..');
+});
+   
+        
+In the above example, app.get(), app.post(), app.put() and app.delete() 
+methods define routes for HTTP GET, POST, PUT, DELETE respectively. 
+
+The first parameter is a path of a route which will start 
+after base URL. 
+The callback function includes request and response object 
+which will be executed on each request.
+
+Run the above example using node server.js command,
+ and point your browser to http://localhost:5000 and 
+
+ ===========================
+Express.js Web Application
+Handle POST Request:
+
+ how to handle HTTP POST request and get data from the submitted form.
+
+First, create home .html file in the root folder of your application  .
+
+Example: Configure Routes in Express.js
+     
+index.html   
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="/submit-student-data" method="post">
+        First Name: <input name="firstName" type="text" /> <br />
+        Last Name: <input name="lastName" type="text" /> <br />
+        <input type="submit" />
+    </form>
+</body>
+</html>
+   
+        
+Body Parser:
+To handle HTTP POST request in Express.js 
+ you need to install middleware module called body-parser. 
+
+The middleware was a part of Express.js earlier but now you have to
+ install it separately.
+
+
+This body-parser module parses the JSON, buffer,
+ string and url encoded data submitted using HTTP POST request.
+ Install body-parser using NPM 
+
+
+
+npm install body-parser --save
+Now, import body-parser and get the POST request data 
+
+app.js: Handle POST Route in Express.js
+        
+var express = require('express');
+var app = express();
+
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/', function (req, res) {
+    res.sendFile('index.html');
+});
+
+app.post('/submit-student-data', function (req, res) {
+    var name = req.body.firstName + ' ' + req.body.lastName;
+    
+    res.send(name + ' Submitted Successfully!');
+});
+
+var server = app.listen(5000, function () {
+    console.log('Node server is running..');
+});
+   
+        
+In the above example, POST data can be accessed using req.body. The req.body is an object that includes properties for each submitted form. Index.html contains firstName and lastName input types, so you can access it using req.body.firstName and req.body.lastName.
+
+http://localhost:5000 
+
+ 
+HTML Form to submit POST request
+
+
+ 
+
+
+
+
